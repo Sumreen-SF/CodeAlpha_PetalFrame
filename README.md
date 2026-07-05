@@ -30,37 +30,3 @@ for your own photos whenever you're ready — see the section below.
 ## Run it locally
 No build tools needed. Just open `index.html` in a browser, or for a
 closer-to-production test, serve it locally:
-
-```bash
-# from inside the petalframe folder
-python3 -m http.server 8000
-# then visit http://localhost:8000
-```
-
-## Deploy to GitHub Pages
-
-1. Create a new GitHub repository (e.g. `petalframe`).
-2. Push these three files to the repo's root:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: PetalFrame gallery"
-   git branch -M main
-   git remote add origin https://github.com/YOUR-USERNAME/petalframe.git
-   git push -u origin main
-   ```
-3. On GitHub: go to **Settings → Pages**.
-4. Under "Build and deployment", set **Source** to `Deploy from a branch`.
-5. Set **Branch** to `main` and folder to `/ (root)`, then **Save**.
-6. Wait about a minute — GitHub will give you a live URL like:
-   `https://YOUR-USERNAME.github.io/petalframe/`
-
-That's it — no build step, since this is plain HTML/CSS/JS.
-
-## Swapping in your own photos
-Replace the `src` and `data-full` URLs in `index.html` with your own image
-links (or local files in an `/images` folder). Keep `data-category` matching
-one of the filter values (`bloom`, `texture`, `still-life`, `facade`), or
-rename the categories to fit your own photos — just make sure the filter
-button's `data-filter` and the image's `data-category` use the exact same
-text.
