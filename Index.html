@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PetalFrame - Image Gallery</title>
+
+<!-- Google Fonts: a serif for personality (headings) + a clean sans for readability (body/UI) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== HEADER ===== -->
+  <header class="site-header">
+    <h1 class="logo">Petal<span>Frame</span></h1>
+    <p class="tagline">a quiet little gallery of moments <span class="petal-emoji" aria-hidden="true">🌸</span></p>
+  </header>
+
+  <!-- ===== FILTER BAR =====
+       data-filter="all" shows everything.
+       Every other button's data-filter must match the data-category
+       value on the images below — that's how the filtering logic connects them. -->
+  <nav class="filter-bar" aria-label="Filter gallery by category">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="bloom">Bloom</button>
+    <button class="filter-btn" data-filter="texture">Texture</button>
+    <button class="filter-btn" data-filter="still-life">Still Life</button>
+    <button class="filter-btn" data-filter="facade">Facade</button>
+  </nav>
+
+  <!-- ===== GALLERY GRID =====
+       Each figure is one gallery item.
+       - data-category is read by the JS filter logic
+       - data-full points to a larger version for the lightbox
+       - the visible <img> is the thumbnail people actually download on page load
+
+       NOTE: src and data-full both point to the SAME local file here.
+       That's fine for local images (unlike the old Picsum setup, there's
+       no separate "small" vs "large" version) — the lightbox will just
+       display it bigger on screen. If you want true thumbnail-vs-full-res
+       pairs later, save two sizes of each photo and point data-full at
+       the bigger one. -->
+  <main class="gallery" id="gallery">
+
+    <figure class="gallery-item" data-category="bloom">
+      <img src="images/bloom-1.jpg"
+           data-full="images/bloom-1.jpg"
+           alt="Red blossom branch in a vase">
+      <figcaption>Cherry Blossom, No. 1</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="texture">
+      <img src="images/texture-1.jpg"
+           data-full="images/texture-1.jpg"
+           alt="Red paint texture on blue surface">
+      <figcaption>Wine on Slate</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="still-life">
+      <img src="images/stilllife-1.jpg"
+           data-full="images/stilllife-1.jpg"
+           alt="Magazine flatlay styled scene">
+      <figcaption>Reading Corner</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="facade">
+      <img src="images/facade-1.jpg"
+           data-full="images/facade-1.jpg"
+           alt="Blue building facade with a maroon door">
+      <figcaption>Blue Hour Doorway</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="bloom">
+      <img src="images/bloom-2.jpg"
+           data-full="images/bloom-2.jpg"
+           alt="Close up of red flower petals">
+      <figcaption>Petals, Close</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="texture">
+      <img src="images/texture-2.jpg"
+           data-full="images/texture-2.jpg"
+           alt="Burgundy velvet fabric folds">
+      <figcaption>Velvet Fold</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="still-life">
+      <img src="images/stilllife-2.jpg"
+           data-full="images/stilllife-2.jpg"
+           alt="Ceramic bowl on a table">
+      <figcaption>Quiet Table</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="facade">
+      <img src="images/facade-2.jpg"
+           data-full="images/facade-2.jpg"
+           alt="Narrow blue alley street">
+      <figcaption>Alleyway, Noon</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="bloom">
+      <img src="images/bloom-3.jpg"
+           data-full="images/bloom-3.jpg"
+           alt="Pink flowers in morning light">
+      <figcaption>Morning Bloom</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="texture">
+      <img src="images/texture-3.jpg"
+           data-full="images/texture-3.jpg"
+           alt="Woven fabric texture">
+      <figcaption>Woven Study</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="still-life">
+      <img src="images/stilllife-3.jpg"
+           data-full="images/stilllife-3.jpg"
+           alt="Coffee and book flatlay">
+      <figcaption>Flatlay, Blue Hour</figcaption>
+    </figure>
+
+    <figure class="gallery-item" data-category="facade">
+      <img src="images/facade-3.jpg"
+           data-full="images/facade-3.jpg"
+           alt="Blue window architecture detail">
+      <figcaption>Corner Window</figcaption>
+    </figure>
+
+  </main>
+
+  <!-- ===== EMPTY STATE =====
+       Hidden by default. JS shows this if a filter matches zero images. -->
+  <p class="empty-state" id="emptyState" hidden>No photos in this category yet — try another filter.</p>
+
+  <!-- ===== LIGHTBOX =====
+       One reusable overlay for ALL images, rather than one modal per image.
+       JS just swaps the src/caption on it — much lighter than duplicating markup. -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" aria-label="Previous image">&#8249;</button>
+
+    <figure class="lightbox-content">
+      <img id="lightboxImage" src="" alt="">
+      <figcaption id="lightboxCaption"></figcaption>
+    </figure>
+
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" aria-label="Next image">&#8250;</button>
+  </div>
+
+  <footer class="site-footer">
+    <p>PetalFrame - Built by Sumreen Fatima</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
