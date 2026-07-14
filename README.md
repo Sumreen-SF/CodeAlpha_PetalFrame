@@ -1,12 +1,12 @@
 # PetalFrame - Image Gallery
 
 A responsive image gallery built with HTML, CSS, and vanilla JavaScript.
-No frameworks, no build step — just three files.
+No frameworks, no build step - just three files.
 
 ## Files
-- `index.html` — page structure, gallery markup, lightbox markup
-- `style.css` — palette, layout, hover effects, lightbox styling, responsive rules
-- `script.js` — filtering logic + lightbox open/close/next/prev
+- `index.html` : page structure, gallery markup, lightbox markup
+- `style.css` : palette, layout, hover effects, lightbox styling, responsive rules
+- `script.js` : filtering logic + lightbox open/close/next/prev
 
 ## Features
 - Responsive CSS Grid gallery (auto-adjusts columns to screen width)
